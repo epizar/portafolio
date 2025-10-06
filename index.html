@@ -25,13 +25,66 @@
       background-color: var(--color-light);
       color: var(--color-primary);
       line-height: 1.6;
+      overflow-x: hidden;
     }
 
+    /* ===== HERO SECTION ===== */
     header.hero {
-      background-color: var(--color-secondary);
+      position: relative;
+      height: 100vh;
       color: var(--color-light);
-      padding: 4rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       text-align: center;
+      overflow: hidden;
+      background: linear-gradient(135deg, #1a1a40, #232a5c, #36145d);
+      background-size: 600% 600%;
+      animation: gradientShift 25s ease infinite;
+    }
+
+    /* Fondo animado de estrellas */
+    .stars, .stars2, .stars3 {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: transparent url("https://raw.githubusercontent.com/VincentGarreau/particles.js/master/demo/img/stars.png") repeat;
+      z-index: 0;
+      animation: moveStars 200s linear infinite;
+    }
+
+    .stars2 {
+      animation-duration: 400s;
+      opacity: 0.6;
+    }
+
+    .stars3 {
+      animation-duration: 800s;
+      opacity: 0.3;
+    }
+
+    @keyframes moveStars {
+      from {background-position: 0 0;}
+      to {background-position: -10000px 10000px;}
+    }
+
+    /* Animación del gradiente de fondo (cambio de color) */
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      25% { background-position: 50% 100%; }
+      50% { background-position: 100% 50%; }
+      75% { background-position: 50% 0%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .hero-content {
+      z-index: 2;
+      position: relative;
+      padding: 2rem;
+      backdrop-filter: blur(4px);
     }
 
     .hero h1 {
@@ -56,16 +109,45 @@
       border-radius: 8px;
       font-weight: 600;
       transition: background-color 0.3s ease;
+      display: inline-block;
+      margin: 0.3rem;
     }
 
     .btn:hover {
       background-color: #c53030;
     }
 
+    /* Avatar animado */
+    .avatar {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 4px solid var(--color-accent);
+      box-shadow: 0 0 25px rgba(255, 100, 100, 0.6);
+      object-fit: cover;
+      margin-bottom: 1.5rem;
+      animation: fadeIn 2s ease-out, float 6s ease-in-out infinite;
+      z-index: 2;
+      position: relative;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
     section {
-      padding: 3rem 2rem;
+      padding: 4rem 2rem;
       max-width: 1000px;
       margin: auto;
+      z-index: 1;
+      position: relative;
+      background-color: var(--color-light);
     }
 
     .projects {
@@ -96,62 +178,69 @@
       background-color: var(--color-secondary);
       color: var(--color-light);
     }
+
+    /* Transición suave entre secciones */
+    html {
+      scroll-behavior: smooth;
+    }
   </style>
 </head>
 <body>
   <header class="hero">
-    <h1>Hola, soy <span class="accent">Eduardo Pizarro</span></h1>
-    <p>Desarrollador Web | JavaScript | Python | Machine Learning | Salesforce</p>
-    <a href="#sobre-mi" class="btn">Sobre mí</a>
-    <a href="#proyectos" class="btn">Ver mis proyectos</a>
-    <a href="#contacto" class="btn">Contacto</a>
+    <!-- Capas de estrellas -->
+    <div class="stars"></div>
+    <div class="stars2"></div>
+    <div class="stars3"></div>
+
+    <!-- Contenido principal del héroe -->
+    <div class="hero-content">
+      <img src="unnamed.png" alt="Avatar de Eduardo Pizarro" class="avatar">
+      <h1>Hola, soy <span class="accent">Eduardo Pizarro</span></h1>
+      <p>Desarrollador Web | JavaScript | Python | Machine Learning | Salesforce</p>
+      <a href="#sobre-mi" class="btn">Sobre mí</a>
+      <a href="#proyectos" class="btn">Ver mis proyectos</a>
+      <a href="#contacto" class="btn">Contacto</a>
+    </div>
   </header>
 
-    <section id="sobre-mi">
-      <h2>Sobre mí</h2>
-      <p>Soy un desarrollador web en formación continua, actualmente cursando la Especialización en Machine Learning (Botic-Sofofa). Me apasiona crear experiencias web accesibles, eficientes y bien estructuradas. Estoy en proceso de reconversión profesional hacia la inteligencia artificial aplicada.</p>
-    </section>
+  <section id="sobre-mi">
+    <h2>Sobre mí</h2>
+    <p>Soy un desarrollador web en formación continua, actualmente cursando la Especialización en Machine Learning (Botic-Sofofa). Me apasiona crear experiencias web accesibles, eficientes y bien estructuradas. Estoy en proceso de reconversión profesional hacia la inteligencia artificial aplicada.</p>
+  </section>
 
   <section id="proyectos">
     <h2>Proyectos Destacados</h2>
     <div class="projects">
       <div class="project-card">
         <h3>Te lo vendo</h3>
-        <p>Página Web de Venta de Productos. HTML|Javascript|css, para venta de productos.</p>
+        <p>Página Web de Venta de Productos. HTML | JavaScript | CSS, para venta de productos.</p>
         <a href="https://epizar.github.io/tarea7-grupal-modulo2/" target="_blank" rel="noopener">Ver proyecto</a>
       </div>
       <div class="project-card">
-        <h3>Prediccion Enfermedades|Fintech</h3>
-        <p>Integrar un modelo de predicción de salud. Flask|Docker|Rest, Sistema completo que integra un modelo de Machine Learning.</p>
+        <h3>Predicción Enfermedades | Fintech</h3>
+        <p>Integración de un modelo de predicción de salud. Flask | Docker | REST, sistema completo con Machine Learning.</p>
         <a href="https://github.com/epizar/evaluacion_modular/" target="_blank" rel="noopener">Ver proyecto</a>
       </div>
       <div class="project-card">
         <h3>Alke Wallet</h3>
-        <p>Aplicación de gestión de billetera digital. Java|Android, AlkeWallet es una aplicación que permite a los usuarios realizar diversas operaciones financieras.</p>
+        <p>Aplicación de gestión de billetera digital. Java | Android. Permite realizar diversas operaciones financieras.</p>
         <a href="https://github.com/epizar/Android-Modulo2/" target="_blank" rel="noopener">Ver proyecto</a>
       </div>
-            <div class="project-card">
+      <div class="project-card">
         <h3>SQL Wallet</h3>
-        <p>Parte de del curso de base de datos con MYSQL. MYSQL, Lógica SQL para aplicación de monedero virtual que permite a los usuarios realizar transacciones financieras entre sí.</p>
+        <p>Parte del curso de base de datos con MySQL. Lógica SQL para monedero virtual con transacciones entre usuarios.</p>
         <a href="https://github.com/epizar/Android-Modulo3/tree/main/sql_alkeWallet-main" target="_blank" rel="noopener">Ver proyecto</a>
       </div>
-
-      <!-- Agrega más project-card según necesites -->
     </div>
   </section>
 
-      <section id="contacto">
-      <h2>Contacto</h2>
-      <p>Puedes encontrarme en <a href="https://www.linkedin.com/in/epizar" target="_blank" rel="noopener">LinkedIn</a> o escribirme directamente a <a href="mailto:epizar@gmail.com">epizar@gmail.com</a>.</p>
-    </section>
-  </main>
+  <section id="contacto">
+    <h2>Contacto</h2>
+    <p>Puedes encontrarme en <a href="https://www.linkedin.com/in/epizar" target="_blank" rel="noopener">LinkedIn</a> o escribirme directamente a <a href="mailto:epizar@gmail.com">epizar@gmail.com</a>.</p>
+  </section>
 
-  
   <footer>
     <p>&copy; 2025 Eduardo Pizarro. Todos los derechos reservados.</p>
   </footer>
 </body>
 </html>
-
-
-
